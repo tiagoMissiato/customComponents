@@ -1,0 +1,11 @@
+//values/attrs.xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TrTextView">            
+        <attr name="mTvFontFamily" format="string" />
+    </declare-styleable>
+    
+    <declare-styleable name="TrEditText">            
+        <attr name="mTeFontFamily" format="string" />
+    </declare-styleable>
+</resources>
