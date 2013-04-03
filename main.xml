@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  		  xmlns:app="http://schemas.android.com/apk/res/br.com.rigolas.customelements.activity"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/hello"
+    />
+    
+    <br.com.rigolas.customelements.custom.TrTextView
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+    	android:text="Teste Custom"
+    	app:mTvFontFamily="Roboto/Roboto-Light.ttf"
+    />
+    
+     <br.com.rigolas.customelements.custom.TrEditText
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+    	android:text="Teste Custom"
+    	app:mTeFontFamily="Roboto/Roboto-Light.ttf"
+    />
+</LinearLayout>
