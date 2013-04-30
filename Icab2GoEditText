@@ -1,0 +1,84 @@
+package br.com.rigolas.customcomponent.components;
+
+import java.io.IOException;
+import java.text.NumberFormat;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.text.InputType;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Gravity;
+import android.widget.EditText;
+
+public class TrEditTextCurrency extends EditText{
+
+  public String lastText = "0";
+	
+  public TrEditTextCurrency(Context context, AttributeSet attrs) throws IOException {
+		super(context, attrs);
+
+		this.setGravity(Gravity.RIGHT);
+		this.setBackgroundColor(Color.TRANSPARENT);
+		this.setInputType(InputType.TYPE_CLASS_NUMBER);
+		
+	}
+
+  	@Override
+  	protected void onTextChanged(CharSequence text, int start,
+  			int lengthBefore, int lengthAfter) {
+  	
+  		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMinimumFractionDigits(2);
+		nf.setMaximumFractionDigits(2);
+		
+		String textAux = text.toString().length() == 0 ? "" : text.toString().replaceAll("[,]", "").replaceAll("[.]", "").trim();
+		String formatted = "";
+		
+		switch(textAux.length()){
+		
+			case 0:
+				formatted = "0.00";
+				break;
+			case 1:
+				formatted = "0.0"+textAux;
+				break;
+			case 2:
+				formatted = "0."+textAux;
+				break;
+			default:
+				String lNumber = textAux.substring(0, textAux.length() - 2);
+				String rNumber = textAux.substring(textAux.length() - 2);
+				String newValue = nf.format(Float.parseFloat(lNumber));
+				formatted = newValue.substring(0, newValue.length() - 2) + rNumber;
+				break;
+		
+		}
+
+		if(lastText == null || !lastText.equalsIgnoreCase(textAux)){
+			lastText = textAux;
+			this.setText(formatted);
+			setSelection(this.getText().length());
+		}
+		
+  		super.onTextChanged(text, start, lengthBefore, lengthAfter);
+  	}
+  	
+  	public float getLongValue(){
+  		
+  		String val = this.getText().toString();
+  		
+  		return Float.parseFloat(val.replaceAll("[,]", "").replace("R$ ", "").trim());
+  		
+  	}
+  	
+  	public void setValue(float val){
+  		
+  		NumberFormat format = NumberFormat.getNumberInstance();
+  		format.setMinimumFractionDigits(2);
+  		format.setMaximumFractionDigits(2);
+  		String output = format.format(val);
+  		Log.i("DEBUG",output);
+  		this.setText(output);
+  	}
+}
